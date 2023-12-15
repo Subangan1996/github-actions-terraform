@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Change to Terraform directory
-        run: cd path/to/terraform/directory # Replace with your Terraform config directory
+        run: cd github-actions-terraform/terraform
 
       - name: Configure AWS credentials from AWS account
         uses: aws-actions/configure-aws-credentials@v1

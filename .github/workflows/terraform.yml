@@ -1,27 +1,26 @@
-name: Terraform Workflow
+name: "Terraform action"
 on:
   push:
     branches:
       - main
   pull_request:
 permissions:
-  id-token: write
-  contents: read
-  pull-requests: write
+      id-token: write # This is required for aws oidc connection
+      contents: read # This is required for actions/checkout
+      pull-requests: write # This is required for gh bot to comment PR
 env:
   TF_LOG: INFO
   AWS_REGION: ${{ secrets.AWS_REGION }}
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
-
-      - name: Change to Terraform directory
-        run: cd github-actions-terraform/terraform
 
       - name: Configure AWS credentials from AWS account
         uses: aws-actions/configure-aws-credentials@v1
